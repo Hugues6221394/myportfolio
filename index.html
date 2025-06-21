@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hugues Ngabonziza | Java/Python Software Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Source+Code+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #0d9488;  /* Deep teal */
+      --secondary: #2563eb; /* Royal blue */
+      --accent: #f59e0b;   /* Vibrant gold */
+      --dark: #0f172a;     /* Navy blue */
+      --darker: #020617;   /* Near black */
+      --light: #f8fafc;    /* Bright white */
+      --gray: #64748b;     /* Cool gray */
+      --dark-gray: #1e293b; /* Dark slate */
+      --code-green: #10b981;
+      --code-blue: #3b82f6;
+      --code-purple: #8b5cf6;
+      --code-yellow: #f59e0b;
+      --code-red: #ef4444;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--light);
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+      background-color: var(--darker);
+    }
+    
+    /* IDE Background Effect */
+    .code-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.08;
+      background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.7) contrast(1.2);
+    }
+    
+    .terminal-cursor {
+      display: inline-block;
+      width: 10px;
+      height: 20px;
+      background-color: var(--code-green);
+      animation: blink 1s step-end infinite;
+      vertical-align: middle;
+      margin-left: 2px;
+    }
+    
+    @keyframes blink {
+      from, to { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    
+    ::selection {
+      background: var(--accent);
+      color: var(--dark);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+    }
+    
+    /* Header Styles */
+    header {
+      text-align: center;
+      padding: 5rem 0 3rem;
+      position: relative;
+    }
+    
+    .profile-container {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 2rem;
+      border-radius: 50%;
+      border: 4px solid var(--primary);
+      padding: 6px;
+      position: relative;
+      box-shadow: 0 0 0 0 rgba(13, 148, 136, 0.4);
+      animation: pulse 4s infinite;
+      transition: all 0.5s ease;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(5px);
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(13, 148, 136, 0.4); }
+      70% { box-shadow: 0 0 0 15px rgba(13, 148, 136, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(13, 148, 136, 0); }
+    }
+    
+    .profile-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      filter: contrast(110%) saturate(90%);
+      transition: all 0.4s ease;
+      border: 2px solid rgba(245, 158, 11, 0.3);
+    }
+    
+    .profile-img:hover {
+      filter: contrast(120%) saturate(120%);
+      transform: scale(1.05);
+    }
+    
+    h1 {
+      font-size: 3.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 0.3s;
+      letter-spacing: -0.5px;
+    }
+    
+    .title {
+      font-size: 1.3rem;
+      color: var(--gray);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 0.6s;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.8;
+    }
+    
+    .title span {
+      color: var(--accent);
+      font-weight: 500;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Section Styles */
+    section {
+      margin-bottom: 4rem;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+      animation-delay: calc(var(--order) * 0.15s + 0.9s);
+    }
+    
+    h2 {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      color: transparent;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      position: relative;
+      display: inline-block;
+      letter-spacing: -0.5px;
+    }
+    
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 2px;
+    }
+    
+    /* Card Styles */
+    .card {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(37, 99, 235, 0.1);
+      border-radius: 16px;
+      padding: 2.5rem;
+      margin-bottom: 2.5rem;
+      backdrop-filter: blur(8px);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+      box-shadow: 0 10px 30px -15px rgba(2, 6, 23, 0.7);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(37, 99, 235, 0.1),
+        transparent
+      );
+      transition: 0.5s;
+    }
+    
+    .card:hover::before {
+      left: 100%;
+    }
+    
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 50px -15px rgba(37, 99, 235, 0.3);
+      border-color: rgba(37, 99, 235, 0.3);
+    }
+    
+    /* List Styles */
+    .skills-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
+    
+    .skills-list li {
+      padding: 1rem 1.2rem;
+      background: rgba(30, 41, 59, 0.5);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s ease;
+      border-left: 3px solid transparent;
+      font-family: 'Source Code Pro', monospace;
+    }
+    
+    .skills-list li:hover {
+      background: rgba(13, 148, 136, 0.1);
+      transform: translateX(8px);
+      border-left: 3px solid var(--accent);
+    }
+    
+    .skills-list li::before {
+      content: '▹';
+      color: var(--accent);
+      margin-right: 1rem;
+      font-size: 1.2rem;
+    }
+    
+    /* Projects Styles */
+    .projects-list {
+      list-style: none;
+    }
+    
+    .project-item {
+      padding: 2rem 0;
+      border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+      transition: all 0.3s ease;
+    }
+    
+    .project-item:last-child {
+      border-bottom: none;
+    }
+    
+    .project-item:hover {
+      border-bottom-color: var(--primary);
+    }
+    
+    .project-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      color: var(--light);
+      display: flex;
+      align-items: center;
+    }
+    
+    .project-title::before {
+      content: '»';
+      color: var(--accent);
+      margin-right: 0.8rem;
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
+    }
+    
+    .project-item:hover .project-title::before {
+      transform: translateX(5px);
+    }
+    
+    .project-desc {
+      color: var(--gray);
+      margin-bottom: 1.2rem;
+      line-height: 1.8;
+      padding-left: 2rem;
+    }
+    
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      padding-left: 2rem;
+    }
+    
+    .tech-tag {
+      background: rgba(37, 99, 235, 0.1);
+      color: var(--secondary);
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(37, 99, 235, 0.2);
+      font-family: 'Source Code Pro', monospace;
+    }
+    
+    .tech-tag:hover {
+      background: rgba(37, 99, 235, 0.2);
+      transform: translateY(-2px);
+    }
+    
+    /* Code Block Styles */
+    .code-block {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      overflow-x: auto;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.9rem;
+      border-left: 4px solid var(--accent);
+    }
+    
+    .code-keyword {
+      color: var(--code-purple);
+    }
+    
+    .code-type {
+      color: var(--code-blue);
+    }
+    
+    .code-string {
+      color: var(--code-green);
+    }
+    
+    .code-comment {
+      color: var(--gray);
+      font-style: italic;
+    }
+    
+    .code-number {
+      color: var(--code-yellow);
+    }
+    
+    /* Project Link Styles */
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      margin-left: 2rem;
+      color: var(--accent);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+    
+    .project-link:hover {
+      color: var(--primary);
+      transform: translateX(5px);
+    }
+    
+    .project-link i {
+      margin-right: 0.5rem;
+    }
+    
+    /* Contact Styles */
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .social-link {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(30, 41, 59, 0.7);
+      color: var(--gray);
+      font-size: 1.8rem;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(100, 116, 139, 0.2);
+    }
+    
+    .social-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(13, 148, 136, 0.1), transparent);
+      transition: all 0.6s ease;
+    }
+    
+    .social-link:hover {
+      background: var(--dark-gray);
+      color: var(--accent);
+      transform: translateY(-5px) scale(1.1);
+      box-shadow: 0 10px 20px -5px rgba(245, 158, 11, 0.2);
+    }
+    
+    .social-link:hover::before {
+      left: 100%;
+    }
+    
+    /* Terminal Effect */
+    .terminal-line {
+      font-family: 'Source Code Pro', monospace;
+      color: var(--code-green);
+      margin-bottom: 0.5rem;
+      opacity: 0;
+      animation: terminal-type 0.5s forwards;
+      animation-delay: calc(var(--line-index) * 0.2s + 1s);
+    }
+    
+    @keyframes terminal-type {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .terminal-prompt {
+      color: var(--code-blue);
+    }
+    
+    .terminal-command {
+      color: var(--code-yellow);
+    }
+    
+    .terminal-output {
+      color: var(--code-green);
+    }
+    
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 4rem 0 3rem;
+      color: var(--gray);
+      font-size: 0.9rem;
+      position: relative;
+    }
+    
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    }
+    
+    footer p {
+      margin-bottom: 0.5rem;
+    }
+    
+    .footer-accent {
+      color: var(--accent);
+      font-weight: 500;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.4rem;
+      }
+      
+      .title {
+        font-size: 1.1rem;
+      }
+      
+      .skills-list {
+        grid-template-columns: 1fr;
+      }
+      
+      .container {
+        padding: 0 1.5rem;
+      }
+      
+      .card {
+        padding: 1.8rem;
+      }
+      
+      h2 {
+        font-size: 1.8rem;
+      }
+      
+      .code-background {
+        opacity: 0.05;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- IDE Background -->
+  <div class="code-background"></div>
+  
+  <div class="container">
+    <header>
+      <div class="profile-container">
+        <img src="D:\Desktop\AUCA\SOFTWARE TESTING\Portfolio App\Photo Passport.jpg" alt="Hugues Ngabonziza" class="profile-img">
+      </div>
+      <h1>Hugues NGABONZIZA</h1>
+      <p class="title">
+        <span>Java || Python Software Engineer</span> | CyberSecurity Specialist | 
+        Full Stack Developer | Secure Systems Architect
+      </p>
+      
+      <!-- Terminal Animation -->
+      <div style="max-width: 800px; margin: 2rem auto; background: rgba(15, 23, 42, 0.7); border-radius: 8px; padding: 1.5rem; font-family: 'Source Code Pro', monospace; border: 1px solid rgba(100, 116, 139, 0.2);">
+        <div class="terminal-line" style="--line-index: 0;">
+          <span class="terminal-prompt">hugues@software-engineer:~$</span> <span class="terminal-command">whoami</span>
+        </div>
+        <div class="terminal-line" style="--line-index: 1;">
+          <span class="terminal-output">Hugues Ngabonziza - Java/Python Engineer & Full Stack Developer</span>
+        </div>
+        <div class="terminal-line" style="--line-index: 2;">
+          <span class="terminal-prompt">hugues@software-engineer:~$</span> <span class="terminal-command">cat skills.txt</span>
+        </div>
+        <div class="terminal-line" style="--line-index: 3;">
+          <span class="terminal-output">Java | Python | Spring Boot | Django | React | Hibernate | PostgreSQL</span>
+        </div>
+        <div class="terminal-line" style="--line-index: 4;">
+          <span class="terminal-prompt">hugues@software-engineer:~$</span> <span class="terminal-command"><span class="terminal-cursor"></span></span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section style="--order: 1;">
+        <h2>My Profile</h2>
+        <div class="card">
+          <p style="margin-bottom: 1.5rem; line-height: 1.9;">
+            I’m a software engineer who works with Java and Python. I build full applications from start to finish, and I focus on making sure they are not only useful but also very secure. I mix strong coding skills with good cybersecurity practices to keep everything safe and running well
+          </p>
+          <p style="line-height: 1.9;">
+           I have real experience working on both the frontend and backend of applications. I make sure security is built into every part from how the user interface looks to how the database is set up. My projects show how I use different technologies in real, working systems
+          </p>
+          
+          <div class="code-block">
+            <span class="code-comment">// Example of secure Java code</span><br>
+            <span class="code-keyword">public</span> <span class="code-keyword">class</span> <span class="code-type">SecureAuth</span> {<br>
+            &nbsp;&nbsp;<span class="code-keyword">public</span> <span class="code-type">User</span> <span class="code-keyword">authenticate</span>(<span class="code-type">String</span> username, <span class="code-type">char</span>[] password) {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment">// Use secure password hashing</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-type">String</span> hashed = <span class="code-type">BCrypt</span>.hashpw(<span class="code-keyword">new</span> <span class="code-type">String</span>(password), <span class="code-type">BCrypt</span>.gensalt());<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-type">Arrays</span>.fill(password, <span class="code-string">'\0'</span>); <span class="code-comment">// Clear sensitive data</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment">// Validate against stored hash</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> userRepo.findByCredentials(username, hashed);<br>
+            &nbsp;&nbsp;}<br>
+            }
+          </div>
+        </div>
+      </section>
+
+      <section style="--order: 2;">
+        <h2>Skills Arsenal</h2>
+        <div class="card">
+          <h3 style="color: var(--accent); margin-bottom: 1.5rem; font-weight: 500; font-size: 1.2rem;">
+            <i class="fas fa-code" style="margin-right: 0.5rem;"></i>Programming Languages
+          </h3>
+          <ul class="skills-list">
+            <li>Java</li>
+            <li>Python</li>
+            <li>React Js (Web Applications) </li>
+            <li>HTML/CSS/ JavaScript (Frontend)</li>
+            <li>Database (PostgreSQL, MySQL, Oracle)</li>
+            <li>Dart (Flutter Mobile Development)</li>
+            <li>C</li>
+            <li>C++</li>
+          </ul>
+          
+          <h3 style="color: var(--accent); margin-top: 2rem; margin-bottom: 1.5rem; font-weight: 500; font-size: 1.2rem;">
+            <i class="fas fa-shield-alt" style="margin-right: 0.5rem;"></i> Security Expertise
+          </h3>
+          <ul class="skills-list">
+            <li>OWASP Top 10 Vulnerabilities</li>
+            <li>DVWA Security Implementation</li>
+            <li>Secure Network Configuration</li>
+            <li>Web Application Firewalls (ModSecurity)</li>
+            <li>Cryptography & Encryption</li>
+            <li>Secure Docker & Kubernetes</li>
+          </ul>
+        </div>
+      </section>
+
+      <section style="--order: 3;">
+        <h2>Coding Projects</h2>
+        <div class="card">
+          <ul class="projects-list">
+            <li class="project-item">
+              <h3 class="project-title">Kasah Technologies Platform</h3>
+              <a href="http://kasahtechnologies.rw/" target="_blank" class="project-link">
+                <i class="fas fa-external-link-alt"></i> Visit Site
+              </a>
+              <p class="project-desc">
+                Designed and developed the frontend of Kasah Technologies' enterprise platform using modern web technologies (HTML5, CSS3, JavaScript). Implemented a fully responsive layout and dynamic user interface components, including an integrated form that allows users to submit messages directly through the platform. Ensured a smooth and intuitive user experience across all devices
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">HTML5</span>
+                <span class="tech-tag">CSS3</span>
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">Responsive Design</span>
+                <span class="tech-tag">UI/UX</span>
+              </div>
+            </li>
+            <li class="project-item">
+              <h3 class="project-title">Rwanda Issue Reporting System</h3>
+              <p class="project-desc">
+                Built a full-stack application for reporting and tracking community issues in Rwanda.
+                Implemented secure authentication, data validation, and reporting workflows.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">Java</span>
+                <span class="tech-tag">Hibernate</span>
+                <span class="tech-tag">PostgreSQL</span>
+                <span class="tech-tag">Spring Boot</span>
+                <span class="tech-tag">REST API</span>
+              </div>
+              
+              <div class="code-block">
+                <span class="code-comment">// Hibernate entity for Issue Reporting</span><br>
+                <span class="code-keyword">@Entity</span><br>
+                <span class="code-keyword">@Table</span>(name = <span class="code-string">"reported_issues"</span>)<br>
+                <span class="code-keyword">public</span> <span class="code-keyword">class</span> <span class="code-type">ReportedIssue</span> {<br>
+                &nbsp;&nbsp;<span class="code-keyword">@Id</span><br>
+                &nbsp;&nbsp;<span class="code-keyword">@GeneratedValue</span>(strategy = <span class="code-type">GenerationType</span>.IDENTITY)<br>
+                &nbsp;&nbsp;<span class="code-keyword">private</span> <span class="code-type">Long</span> id;<br>
+                &nbsp;&nbsp;<span class="code-keyword">@Column</span>(nullable = <span class="code-keyword">false</span>)<br>
+                &nbsp;&nbsp;<span class="code-keyword">private</span> <span class="code-type">String</span> title;<br>
+                &nbsp;&nbsp;<span class="code-keyword">@Column</span>(columnDefinition = <span class="code-string">"TEXT"</span>)<br>
+                &nbsp;&nbsp;<span class="code-keyword">private</span> <span class="code-type">String</span> description;<br>
+                &nbsp;&nbsp;<span class="code-keyword">@ManyToOne</span><br>
+                &nbsp;&nbsp;<span class="code-keyword">private</span> <span class="code-type">User</span> reporter;<br>
+                &nbsp;&nbsp;<span class="code-comment">// Additional fields and methods</span><br>
+                }
+              </div>
+            </li>
+            <li class="project-item">
+              <h3 class="project-title">Girinka Munyarwanda Platform</h3>
+              <p class="project-desc">
+                Developed a livestock distribution management system for Rwanda's Girinka program.
+                Implemented data tracking, beneficiary management, and reporting features.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">Java</span>
+                <span class="tech-tag">Hibernate</span>
+                <span class="tech-tag">PostgreSQL</span>
+                <span class="tech-tag">Spring Security</span>
+                <span class="tech-tag">Thymeleaf</span>
+              </div>
+            </li>
+            <li class="project-item">
+              <h3 class="project-title">AUCA Assignment Management System</h3>
+              <a href="https://hugues6221394.github.io/ASAM-System-Prototype/" target="_blank" class="project-link">
+                <i class="fas fa-external-link-alt"></i> View Prototype
+              </a>
+              <p class="project-desc">
+                Created a React-based system for managing university assignments with features for students,
+                professors, and administrators. Implemented secure authentication and role-based access.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">React.js</span>
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">CSS</span>
+                <span class="tech-tag">REST API</span>
+                <span class="tech-tag">JWT</span>
+              </div>
+              
+              <div class="code-block">
+                <span class="code-comment">// React component for Assignment List</span><br>
+                <span class="code-keyword">const</span> <span class="code-type">AssignmentList</span> = () => {<br>
+                &nbsp;&nbsp;<span class="code-keyword">const</span> [assignments, setAssignments] = <span class="code-keyword">useState</span>([]);<br>
+                &nbsp;&nbsp;<span class="code-keyword">const</span> [loading, setLoading] = <span class="code-keyword">useState</span>(<span class="code-keyword">true</span>);<br>
+                <br>
+                &nbsp;&nbsp;<span class="code-keyword">useEffect</span>(() => {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">const</span> fetchAssignments = <span class="code-keyword">async</span> () => {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">try</span> {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">const</span> response = <span class="code-keyword">await</span> axios.get(<span class="code-string">'/api/assignments'</span>);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;setAssignments(response.data);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} <span class="code-keyword">catch</span> (error) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.error(<span class="code-string">'Error fetching assignments:'</span>, error);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;setLoading(<span class="code-keyword">false</span>);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;};<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;fetchAssignments();<br>
+                &nbsp;&nbsp;}, []);<br>
+                <br>
+                &nbsp;&nbsp;<span class="code-keyword">return</span> (<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;div className=<span class="code-string">"assignment-list"</span>&gt;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{loading ? &lt;Spinner /&gt; : assignments.map(assignment => (<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;AssignmentCard key={assignment.id} assignment={assignment} /&gt;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;))}<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+                &nbsp;&nbsp;);<br>
+                };
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section style="--order: 4;">
+        <h2>Security Projects</h2>
+        <div class="card">
+          <ul class="projects-list">
+            <li class="project-item">
+              <h3 class="project-title">Secure Web Infrastructure Implementation</h3>
+              <p class="project-desc">
+                Configured Linux sub-interfaces with static IPs, deployed Apache2 and NGINX with ModSecurity WAF,
+                implemented HTTPS with self-signed certificates, and set up UFW firewall rules with 2FA SSH access.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">Linux</span>
+                <span class="tech-tag">Apache2</span>
+                <span class="tech-tag">NGINX</span>
+                <span class="tech-tag">ModSecurity</span>
+                <span class="tech-tag">UFW</span>
+                <span class="tech-tag">2FA</span>
+              </div>
+              
+              <div class="code-block">
+                <span class="code-comment"># Example NGINX security configuration</span><br>
+                <span class="code-keyword">server</span> {<br>
+                &nbsp;&nbsp;<span class="code-keyword">listen</span> <span class="code-number">443</span> ssl;<br>
+                &nbsp;&nbsp;<span class="code-keyword">server_name</span> portfolio.auca.ac.rw;<br>
+                &nbsp;&nbsp;<span class="code-comment"># SSL Configuration</span><br>
+                &nbsp;&nbsp;<span class="code-keyword">ssl_certificate</span> /etc/nginx/ssl/selfsigned.crt;<br>
+                &nbsp;&nbsp;<span class="code-keyword">ssl_certificate_key</span> /etc/nginx/ssl/selfsigned.key;<br>
+                &nbsp;&nbsp;<span class="code-comment"># Security Headers</span><br>
+                &nbsp;&nbsp;<span class="code-keyword">add_header</span> X-Frame-Options <span class="code-string">"SAMEORIGIN"</span> always;<br>
+                &nbsp;&nbsp;<span class="code-keyword">add_header</span> X-Content-Type-Options <span class="code-string">"nosniff"</span> always;<br>
+                &nbsp;&nbsp;<span class="code-comment"># ModSecurity WAF</span><br>
+                &nbsp;&nbsp;<span class="code-keyword">modsecurity</span> on;<br>
+                &nbsp;&nbsp;<span class="code-keyword">modsecurity_rules_file</span> /etc/nginx/modsec/main.conf;<br>
+                }
+              </div>
+            </li>
+            <li class="project-item">
+              <h3 class="project-title">Dockerized Secure Portfolio with Traefik</h3>
+              <p class="project-desc">
+                Containerized PHP application with MariaDB, implemented Traefik load balancing with Let's Encrypt TLS,
+                configured HTTP basic authentication and API key protection, and set up high-availability across nodes.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">Docker</span>
+                <span class="tech-tag">Traefik</span>
+                <span class="tech-tag">Let's Encrypt</span>
+                <span class="tech-tag">MariaDB</span>
+                <span class="tech-tag">API Security</span>
+                <span class="tech-tag">Load Balancing</span>
+              </div>
+              
+              <div class="code-block">
+                <span class="code-comment"># docker-compose.yml security snippet</span><br>
+                <span class="code-keyword">services</span>:<br>
+                &nbsp;&nbsp;<span class="code-keyword">traefik</span>:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">labels</span>:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <span class="code-string">"traefik.http.middlewares.auth.basicauth.users=admin:$$2y$$05$$..."</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <span class="code-string">"traefik.http.routers.portfolio.middlewares=auth@docker"</span><br>
+                &nbsp;&nbsp;<span class="code-keyword">portfolio</span>:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">environment</span>:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <span class="code-string">API_KEY=$$(cat /run/secrets/api_key)</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">secrets</span>:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <span class="code-string">api_key</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section style="--order: 5;">
+        <h2>Tools & Platforms</h2>
+        <div class="card">
+          <ul class="skills-list">
+            <li>Kali Linux (Security Testing)</li>
+            <li>Ubuntu/CentOS (Secure Servers)</li>
+            <li>DVWA (Vulnerability Assessment)</li>
+            <li>OWASP ZAP (Security Scanning)</li>
+            <li>Burp Suite (Web Security Testing)</li>
+            <li>Metasploit (Penetration Testing)</li>
+            <li>Wireshark (Network Analysis)</li>
+            <li>Git (Secure Version Control)</li>
+            <li>Docker (Secure Containerization)</li>
+            <li>Kubernetes (Secure Orchestration)</li>
+          </ul>
+        </div>
+      </section>
+
+      <section style="--order: 6;">
+        <h2>Connect With Me</h2>
+        <div class="card" style="text-align: center;">
+          <p style="margin-bottom: 2rem; font-size: 1.1rem; line-height: 1.9; max-width: 600px; margin-left: auto; margin-right: auto;">
+            Interested in secure software engineering, Java/Python development, or full-stack projects?<br>
+            Reach out through any of these channels:
+          </p>
+          <div class="social-links">
+            <a href="mailto:hugues.ngabonziza@auca.ac.rw" class="social-link" title="Email">
+              <i class="fas fa-envelope"></i>
+            </a>
+            <a href="https://github.com/Hugues6221394" target="_blank" class="social-link" title="GitHub">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/hugues-ngabonziza-51a226321/" target="_blank" class="social-link" title="LinkedIn">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Hugues Ngabonziza. All intellectual property protected.</p>
+      <p class="footer-accent">Secure Code. Robust Systems. Engineered Excellence.</p>
+    </footer>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Set current year
+      document.getElementById('year').textContent = new Date().getFullYear();
+      
+      // Animate sections on scroll
+      const animateOnScroll = () => {
+        const sections = document.querySelectorAll('section');
+        const windowHeight = window.innerHeight;
+        
+        sections.forEach(section => {
+          const sectionPos = section.getBoundingClientRect().top;
+          if (sectionPos < windowHeight * 0.75) {
+            section.style.opacity = '1';
+          }
+        });
+      };
+      
+      window.addEventListener('scroll', animateOnScroll);
+      animateOnScroll(); // Run once on load
+      
+      // Terminal typing effect
+      const terminalLines = document.querySelectorAll('.terminal-line');
+      terminalLines.forEach((line, index) => {
+        line.style.animationDelay = `${index * 0.3 + 0.5}s`;
+      });
+      
+      // Add blinking cursor to last terminal line
+      const lastTerminalLine = document.querySelector('.terminal-line:last-child .terminal-command');
+      const cursor = document.createElement('span');
+      cursor.className = 'terminal-cursor';
+      lastTerminalLine.appendChild(cursor);
+    });
+  </script>
+</body>
+</html>
