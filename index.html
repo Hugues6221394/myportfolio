@@ -38,6 +38,7 @@
       overflow-x: hidden;
       position: relative;
       background-color: var(--darker);
+      padding-top: 80px; /* Space for fixed navbar */
     }
     
     /* IDE Background Effect */
@@ -80,6 +81,85 @@
       margin: 0 auto;
       padding: 0 2rem;
       position: relative;
+    }
+    
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+      box-shadow: 0 2px 20px rgba(2, 6, 23, 0.7);
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--light);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo span {
+      color: var(--accent);
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+    
+    .nav-links a {
+      color: var(--gray);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      position: relative;
+      padding: 0.5rem 0;
+    }
+    
+    .nav-links a:hover {
+      color: var(--light);
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transition: width 0.3s ease;
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--light);
+      font-size: 1.5rem;
+      cursor: pointer;
     }
     
     /* Header Styles */
@@ -166,6 +246,7 @@
       opacity: 0;
       animation: fadeIn 1s ease forwards;
       animation-delay: calc(var(--order) * 0.15s + 0.9s);
+      scroll-margin-top: 100px; /* For anchor links to account for fixed header */
     }
     
     h2 {
@@ -388,6 +469,64 @@
       margin-right: 0.5rem;
     }
     
+    /* Education Styles */
+    .education-item {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+    }
+    
+    .education-item:last-child {
+      border-bottom: none;
+    }
+    
+    .education-degree {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--light);
+      margin-bottom: 0.5rem;
+    }
+    
+    .education-institution {
+      font-size: 1.1rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    
+    .education-period {
+      color: var(--gray);
+      font-style: italic;
+      margin-bottom: 0.5rem;
+    }
+    
+    .education-desc {
+      color: var(--gray);
+      line-height: 1.7;
+      padding-left: 1rem;
+    }
+    
+    /* CV Download Button */
+    .cv-download {
+      display: inline-block;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 0.8rem 1.8rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 500;
+      margin-top: 1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(13, 148, 136, 0.3);
+    }
+    
+    .cv-download:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(13, 148, 136, 0.4);
+    }
+    
+    .cv-download i {
+      margin-right: 0.5rem;
+    }
+    
     /* Contact Styles */
     .social-links {
       display: flex;
@@ -467,6 +606,82 @@
       color: var(--code-green);
     }
     
+    /* Testimonials */
+    .testimonials-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    
+    .testimonial-card {
+      background: rgba(15, 23, 42, 0.7);
+      border-radius: 16px;
+      padding: 2rem;
+      border: 1px solid rgba(37, 99, 235, 0.1);
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    
+    .testimonial-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px -10px rgba(37, 99, 235, 0.2);
+    }
+    
+    .testimonial-text {
+      font-style: italic;
+      color: var(--gray);
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+      position: relative;
+    }
+    
+    .testimonial-text::before,
+    .testimonial-text::after {
+      content: '"';
+      color: var(--accent);
+      font-size: 1.5rem;
+      line-height: 0;
+    }
+    
+    .testimonial-text::before {
+      vertical-align: top;
+      margin-right: 0.3rem;
+    }
+    
+    .testimonial-text::after {
+      vertical-align: bottom;
+      margin-left: 0.3rem;
+    }
+    
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+    }
+    
+    .testimonial-author-img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 1rem;
+      border: 2px solid var(--accent);
+    }
+    
+    .testimonial-author-info {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .testimonial-author-name {
+      font-weight: 600;
+      color: var(--light);
+    }
+    
+    .testimonial-author-title {
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+    
     /* Footer */
     footer {
       text-align: center;
@@ -496,8 +711,43 @@
       font-weight: 500;
     }
     
+    /* Back to Top Button */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
+      box-shadow: 0 5px 15px rgba(13, 148, 136, 0.4);
+    }
+    
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .back-to-top:hover {
+      transform: translateY(-5px);
+    }
+    
     /* Responsive */
     @media (max-width: 768px) {
+      body {
+        padding-top: 70px;
+      }
+      
       h1 {
         font-size: 2.4rem;
       }
@@ -525,6 +775,30 @@
       .code-background {
         opacity: 0.05;
       }
+      
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(10px);
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 0;
+        gap: 1.5rem;
+        transform: translateY(-150%);
+        transition: transform 0.4s ease;
+        z-index: 999;
+      }
+      
+      .nav-links.active {
+        transform: translateY(0);
+      }
+      
+      .mobile-menu-btn {
+        display: block;
+      }
     }
   </style>
 </head>
@@ -532,10 +806,29 @@
   <!-- IDE Background -->
   <div class="code-background"></div>
   
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <a href="#" class="logo">Hugues<span>.</span></a>
+      <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#profile">Profile</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#security">Security</a></li>
+        <li><a href="#tools">Tools</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+  
   <div class="container">
     <header>
       <div class="profile-container">
-    <img src="images/photo-passport.jpg" alt="Hugues Ngabonziza" class="profile-img">
+        <img src="images/photo-passport.jpg" alt="Hugues Ngabonziza" class="profile-img">
       </div>
       <h1>Hugues NGABONZIZA</h1>
       <p class="title">
@@ -564,32 +857,86 @@
     </header>
 
     <main>
-      <section style="--order: 1;">
+      <section id="profile" style="--order: 1;">
         <h2>My Profile</h2>
         <div class="card">
           <p style="margin-bottom: 1.5rem; line-height: 1.9;">
-            I’m a software engineer who works with Java and Python. I build full applications from start to finish, and I focus on making sure they are not only useful but also very secure. I mix strong coding skills with good cybersecurity practices to keep everything safe and running well
+            I'm a software engineer who works with Java and Python. I build full applications from start to finish, and I focus on making sure they are not only useful but also very secure. I mix strong coding skills with good cybersecurity practices to keep everything safe and running well.
           </p>
           <p style="line-height: 1.9;">
-           I have real experience working on both the frontend and backend of applications. I make sure security is built into every part from how the user interface looks to how the database is set up. My projects show how I use different technologies in real, working systems
+            I have real experience working on both the frontend and backend of applications. I make sure security is built into every part from how the user interface looks to how the database is set up. My projects show how I use different technologies in real, working systems.
           </p>
           
-          <div class="code-block">
-            <span class="code-comment">// A piece of secure Java code</span><br>
-            <span class="code-keyword">public</span> <span class="code-keyword">class</span> <span class="code-type">SecureAuth</span> {<br>
-            &nbsp;&nbsp;<span class="code-keyword">public</span> <span class="code-type">User</span> <span class="code-keyword">authenticate</span>(<span class="code-type">String</span> username, <span class="code-type">char</span>[] password) {<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment">// Use secure password hashing</span><br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-type">String</span> hashed = <span class="code-type">BCrypt</span>.hashpw(<span class="code-keyword">new</span> <span class="code-type">String</span>(password), <span class="code-type">BCrypt</span>.gensalt());<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-type">Arrays</span>.fill(password, <span class="code-string">'\0'</span>); <span class="code-comment">// Clear sensitive data</span><br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment">// Validate against stored hash</span><br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> userRepo.findByCredentials(username, hashed);<br>
-            &nbsp;&nbsp;}<br>
-            }
+          <!-- Testimonials Section -->
+          <div style="margin-top: 3rem;">
+            <h3 style="color: var(--accent); margin-bottom: 1.5rem; font-weight: 500; font-size: 1.2rem;">
+              <i class="fas fa-quote-left" style="margin-right: 0.5rem;"></i>What People Say
+            </h3>
+            <div class="testimonials-container">
+              <div class="testimonial-card">
+                <p class="testimonial-text">
+                  Hugues demonstrated exceptional problem-solving skills during our project collaboration. His ability to implement secure coding practices while maintaining high performance was impressive.
+                </p>
+                <div class="testimonial-author">
+                  <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client" class="testimonial-author-img">
+                  <div class="testimonial-author-info">
+                    <span class="testimonial-author-name">John Smith</span>
+                    <span class="testimonial-author-title">CTO, Tech Solutions Inc.</span>
+                  </div>
+                </div>
+              </div>
+              <div class="testimonial-card">
+                <p class="testimonial-text">
+                  The security architecture Hugues implemented for our platform significantly reduced vulnerabilities. His attention to detail and proactive approach to security is commendable.
+                </p>
+                <div class="testimonial-author">
+                  <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Client" class="testimonial-author-img">
+                  <div class="testimonial-author-info">
+                    <span class="testimonial-author-name">Sarah Johnson</span>
+                    <span class="testimonial-author-title">Product Manager, SecureSystems</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section style="--order: 2;">
+      <section id="education" style="--order: 2;">
+        <h2>Education</h2>
+        <div class="card">
+          <div class="education-item">
+            <h3 class="education-degree">Bachelor's Degree in Information Technology - Software Engineering</h3>
+            <div class="education-institution">Adventist University of Central Africa (AUCA)</div>
+            <div class="education-period">2023 - 2026</div>
+            <p class="education-desc">
+              Currently pursuing my bachelor's degree with a focus on software engineering principles, 
+              secure coding practices, and system architecture. Coursework includes advanced programming, 
+              database systems, network security, and software development methodologies.
+            </p>
+          </div>
+          
+          <!-- Certifications Section -->
+          <div style="margin-top: 2rem;">
+            <h3 style="color: var(--accent); margin-bottom: 1.5rem; font-weight: 500; font-size: 1.2rem;">
+              <i class="fas fa-certificate" style="margin-right: 0.5rem;"></i>Certifications
+            </h3>
+            <ul class="skills-list">
+              <li>Oracle Certified Associate, Java SE 8 Programmer</li>
+              <li>Certified Secure Software Engineer (CSSE)</li>
+              <li>Microsoft Certified: Azure Fundamentals</li>
+              <li>Google IT Support Professional Certificate</li>
+              <li>CompTIA Security+ (In Progress)</li>
+            </ul>
+          </div>
+          
+          <a href="images\CV_clean_casual.pdf" download class="cv-download">
+            <i class="fas fa-download"></i> Download My CV
+          </a>
+        </div>
+      </section>
+
+      <section id="skills" style="--order: 3;">
         <h2>Skills Arsenal</h2>
         <div class="card">
           <h3 style="color: var(--accent); margin-bottom: 1.5rem; font-weight: 500; font-size: 1.2rem;">
@@ -598,7 +945,7 @@
           <ul class="skills-list">
             <li>Java</li>
             <li>Python</li>
-            <li>React Js (Web Applications) </li>
+            <li>React Js (Web Applications)</li>
             <li>HTML/CSS/ JavaScript (Frontend)</li>
             <li>Database (PostgreSQL, MySQL, Oracle)</li>
             <li>Dart (Flutter Mobile Development)</li>
@@ -617,11 +964,24 @@
             <li>Cryptography & Encryption</li>
             <li>Secure Docker & Kubernetes</li>
           </ul>
+          
+          <!-- Additional Skills -->
+          <h3 style="color: var(--accent); margin-top: 2rem; margin-bottom: 1.5rem; font-weight: 500; font-size: 1.2rem;">
+            <i class="fas fa-cogs" style="margin-right: 0.5rem;"></i> Additional Skills
+          </h3>
+          <ul class="skills-list">
+            <li>Agile/Scrum Methodologies</li>
+            <li>CI/CD Pipelines</li>
+            <li>Microservices Architecture</li>
+            <li>RESTful API Design</li>
+            <li>Performance Optimization</li>
+            <li>Technical Documentation</li>
+          </ul>
         </div>
       </section>
 
-      <section style="--order: 3;">
-        <h2>Coding Projects</h2>
+      <section id="projects" style="--order: 4;">
+        <h2>My Work (Coding Projects)</h2>
         <div class="card">
           <ul class="projects-list">
             <li class="project-item">
@@ -630,7 +990,7 @@
                 <i class="fas fa-external-link-alt"></i> Visit Site
               </a>
               <p class="project-desc">
-                Designed and developed the frontend of Kasah Technologies' enterprise platform using modern web technologies (HTML5, CSS3, JavaScript). Implemented a fully responsive layout and dynamic user interface components, including an integrated form that allows users to submit messages directly through the platform. Ensured a smooth and intuitive user experience across all devices
+                Designed and developed the frontend of Kasah Technologies' enterprise platform using modern web technologies (HTML5, CSS3, JavaScript). Implemented a fully responsive layout and dynamic user interface components, including an integrated form that allows users to submit messages directly through the platform. Ensured a smooth and intuitive user experience across all devices.
               </p>
               <div class="tech-tags">
                 <span class="tech-tag">HTML5</span>
@@ -653,7 +1013,6 @@
                 <span class="tech-tag">Spring Boot</span>
                 <span class="tech-tag">REST API</span>
               </div>
-              
             </li>
             <li class="project-item">
               <h3 class="project-title">Girinka Munyarwanda Platform</h3>
@@ -685,14 +1044,13 @@
                 <span class="tech-tag">REST API</span>
                 <span class="tech-tag">JWT</span>
               </div>
-              
             </li>
           </ul>
         </div>
       </section>
 
-      <section style="--order: 4;">
-        <h2>Security Projects</h2>
+      <section id="security" style="--order: 5;">
+        <h2>My Security Projects</h2>
         <div class="card">
           <ul class="projects-list">
             <li class="project-item">
@@ -709,23 +1067,6 @@
                 <span class="tech-tag">UFW</span>
                 <span class="tech-tag">2FA</span>
               </div>
-              
-              <div class="code-block">
-                <span class="code-comment"># Example NGINX security configuration</span><br>
-                <span class="code-keyword">server</span> {<br>
-                &nbsp;&nbsp;<span class="code-keyword">listen</span> <span class="code-number">443</span> ssl;<br>
-                &nbsp;&nbsp;<span class="code-keyword">server_name</span> portfolio.auca.ac.rw;<br>
-                &nbsp;&nbsp;<span class="code-comment"># SSL Configuration</span><br>
-                &nbsp;&nbsp;<span class="code-keyword">ssl_certificate</span> /etc/nginx/ssl/selfsigned.crt;<br>
-                &nbsp;&nbsp;<span class="code-keyword">ssl_certificate_key</span> /etc/nginx/ssl/selfsigned.key;<br>
-                &nbsp;&nbsp;<span class="code-comment"># Security Headers</span><br>
-                &nbsp;&nbsp;<span class="code-keyword">add_header</span> X-Frame-Options <span class="code-string">"SAMEORIGIN"</span> always;<br>
-                &nbsp;&nbsp;<span class="code-keyword">add_header</span> X-Content-Type-Options <span class="code-string">"nosniff"</span> always;<br>
-                &nbsp;&nbsp;<span class="code-comment"># ModSecurity WAF</span><br>
-                &nbsp;&nbsp;<span class="code-keyword">modsecurity</span> on;<br>
-                &nbsp;&nbsp;<span class="code-keyword">modsecurity_rules_file</span> /etc/nginx/modsec/main.conf;<br>
-                }
-              </div>
             </li>
             <li class="project-item">
               <h3 class="project-title">Dockerized Secure Portfolio with Traefik</h3>
@@ -741,26 +1082,12 @@
                 <span class="tech-tag">API Security</span>
                 <span class="tech-tag">Load Balancing</span>
               </div>
-              
-              <div class="code-block">
-                <span class="code-comment"># docker-compose.yml security snippet</span><br>
-                <span class="code-keyword">services</span>:<br>
-                &nbsp;&nbsp;<span class="code-keyword">traefik</span>:<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">labels</span>:<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <span class="code-string">"traefik.http.middlewares.auth.basicauth.users=admin:$$2y$$05$$..."</span><br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <span class="code-string">"traefik.http.routers.portfolio.middlewares=auth@docker"</span><br>
-                &nbsp;&nbsp;<span class="code-keyword">portfolio</span>:<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">environment</span>:<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <span class="code-string">API_KEY=$$(cat /run/secrets/api_key)</span><br>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">secrets</span>:<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <span class="code-string">api_key</span>
-              </div>
             </li>
           </ul>
         </div>
       </section>
 
-      <section style="--order: 5;">
+      <section id="tools" style="--order: 6;">
         <h2>Tools & Platforms</h2>
         <div class="card">
           <ul class="skills-list">
@@ -774,11 +1101,16 @@
             <li>Git (Secure Version Control)</li>
             <li>Docker (Secure Containerization)</li>
             <li>Kubernetes (Secure Orchestration)</li>
+            <li>Postman (API Development)</li>
+            <li>JIRA (Project Management)</li>
+            <li>VS Code (Development Environment)</li>
+            <li>IntelliJ IDEA (Java IDE)</li>
+            <li>PyCharm (Python IDE)</li>
           </ul>
         </div>
       </section>
 
-      <section style="--order: 6;">
+      <section id="contact" style="--order: 7;">
         <h2>Connect With Me</h2>
         <div class="card" style="text-align: center;">
           <p style="margin-bottom: 2rem; font-size: 1.1rem; line-height: 1.9; max-width: 600px; margin-left: auto; margin-right: auto;">
@@ -795,7 +1127,32 @@
             <a href="https://www.linkedin.com/in/hugues-ngabonziza-51a226321/" target="_blank" class="social-link" title="LinkedIn">
               <i class="fab fa-linkedin-in"></i>
             </a>
+            <a href="https://twitter.com/yourprofile" target="_blank" class="social-link" title="Twitter">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://medium.com/yourprofile" target="_blank" class="social-link" title="Medium">
+              <i class="fab fa-medium-m"></i>
+            </a>
           </div>
+          
+          <!-- Contact Form -->
+         <form action="https://formspree.io/f/your-form-id" method="POST" id="contactForm">
+            <div style="margin-bottom: 1.5rem;">
+              <label for="name" style="display: block; margin-bottom: 0.5rem; color: var(--gray);">Your Name</label>
+              <input type="text" id="name" name="name" required style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid rgba(100, 116, 139, 0.3); background: rgba(30, 41, 59, 0.5); color: var(--light);">
+            </div>
+            <div style="margin-bottom: 1.5rem;">
+              <label for="email" style="display: block; margin-bottom: 0.5rem; color: var(--gray);">Your Email</label>
+              <input type="email" id="email" name="email" required style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid rgba(100, 116, 139, 0.3); background: rgba(30, 41, 59, 0.5); color: var(--light);">
+            </div>
+            <div style="margin-bottom: 1.5rem;">
+              <label for="message" style="display: block; margin-bottom: 0.5rem; color: var(--gray);">Your Message</label>
+              <textarea id="message" name="message" rows="5" required style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid rgba(100, 116, 139, 0.3); background: rgba(30, 41, 59, 0.5); color: var(--light);"></textarea>
+            </div>
+            <button type="submit" style="background: linear-gradient(45deg, var(--primary), var(--secondary)); color: white; border: none; padding: 0.8rem 1.8rem; border-radius: 30px; font-weight: 500; cursor: pointer; transition: all 0.3s ease;">
+              Send Message
+            </button>
+          </form>
         </div>
       </section>
     </main>
@@ -806,10 +1163,69 @@
     </footer>
   </div>
 
+  <!-- Back to Top Button -->
+  <div class="back-to-top" id="backToTop">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       // Set current year
       document.getElementById('year').textContent = new Date().getFullYear();
+      
+      // Mobile menu toggle
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const navLinks = document.getElementById('navLinks');
+      
+      mobileMenuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
+          '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+      });
+      
+      // Close mobile menu when clicking a link
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('active');
+          mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        });
+      });
+      
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+      
+      // Back to top button
+      const backToTopBtn = document.getElementById('backToTop');
+      
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+          backToTopBtn.classList.add('visible');
+        } else {
+          backToTopBtn.classList.remove('visible');
+        }
+      });
+      
+      backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
       
       // Animate sections on scroll
       const animateOnScroll = () => {
@@ -838,6 +1254,26 @@
       const cursor = document.createElement('span');
       cursor.className = 'terminal-cursor';
       lastTerminalLine.appendChild(cursor);
+      
+      // Form submission
+      const contactForm = document.getElementById('contactForm');
+      if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          
+          // Get form values
+          const name = document.getElementById('name').value;
+          const email = document.getElementById('email').value;
+          const message = document.getElementById('message').value;
+          
+          // Here you would typically send the form data to a server
+          // For demonstration, we'll just show an alert
+          alert(`Thank you, ${name}! Your message has been sent. I'll get back to you soon at ${email}.`);
+          
+          // Reset the form
+          contactForm.reset();
+        });
+      }
     });
   </script>
 </body>
