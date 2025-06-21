@@ -535,7 +535,7 @@
   <div class="container">
     <header>
       <div class="profile-container">
-       <img src="images/photo-passport.jpg" alt="My Passport Photo" />
+    <img src="images/photo-passport.jpg" alt="Hugues Ngabonziza" class="profile-img">
       </div>
       <h1>Hugues NGABONZIZA</h1>
       <p class="title">
@@ -575,7 +575,7 @@
           </p>
           
           <div class="code-block">
-            <span class="code-comment">// Example of secure Java code</span><br>
+            <span class="code-comment">// A piece of secure Java code</span><br>
             <span class="code-keyword">public</span> <span class="code-keyword">class</span> <span class="code-type">SecureAuth</span> {<br>
             &nbsp;&nbsp;<span class="code-keyword">public</span> <span class="code-type">User</span> <span class="code-keyword">authenticate</span>(<span class="code-type">String</span> username, <span class="code-type">char</span>[] password) {<br>
             &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment">// Use secure password hashing</span><br>
@@ -654,23 +654,6 @@
                 <span class="tech-tag">REST API</span>
               </div>
               
-              <div class="code-block">
-                <span class="code-comment">// Hibernate entity for Issue Reporting</span><br>
-                <span class="code-keyword">@Entity</span><br>
-                <span class="code-keyword">@Table</span>(name = <span class="code-string">"reported_issues"</span>)<br>
-                <span class="code-keyword">public</span> <span class="code-keyword">class</span> <span class="code-type">ReportedIssue</span> {<br>
-                &nbsp;&nbsp;<span class="code-keyword">@Id</span><br>
-                &nbsp;&nbsp;<span class="code-keyword">@GeneratedValue</span>(strategy = <span class="code-type">GenerationType</span>.IDENTITY)<br>
-                &nbsp;&nbsp;<span class="code-keyword">private</span> <span class="code-type">Long</span> id;<br>
-                &nbsp;&nbsp;<span class="code-keyword">@Column</span>(nullable = <span class="code-keyword">false</span>)<br>
-                &nbsp;&nbsp;<span class="code-keyword">private</span> <span class="code-type">String</span> title;<br>
-                &nbsp;&nbsp;<span class="code-keyword">@Column</span>(columnDefinition = <span class="code-string">"TEXT"</span>)<br>
-                &nbsp;&nbsp;<span class="code-keyword">private</span> <span class="code-type">String</span> description;<br>
-                &nbsp;&nbsp;<span class="code-keyword">@ManyToOne</span><br>
-                &nbsp;&nbsp;<span class="code-keyword">private</span> <span class="code-type">User</span> reporter;<br>
-                &nbsp;&nbsp;<span class="code-comment">// Additional fields and methods</span><br>
-                }
-              </div>
             </li>
             <li class="project-item">
               <h3 class="project-title">Girinka Munyarwanda Platform</h3>
@@ -703,34 +686,6 @@
                 <span class="tech-tag">JWT</span>
               </div>
               
-              <div class="code-block">
-                <span class="code-comment">// React component for Assignment List</span><br>
-                <span class="code-keyword">const</span> <span class="code-type">AssignmentList</span> = () => {<br>
-                &nbsp;&nbsp;<span class="code-keyword">const</span> [assignments, setAssignments] = <span class="code-keyword">useState</span>([]);<br>
-                &nbsp;&nbsp;<span class="code-keyword">const</span> [loading, setLoading] = <span class="code-keyword">useState</span>(<span class="code-keyword">true</span>);<br>
-                <br>
-                &nbsp;&nbsp;<span class="code-keyword">useEffect</span>(() => {<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">const</span> fetchAssignments = <span class="code-keyword">async</span> () => {<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">try</span> {<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">const</span> response = <span class="code-keyword">await</span> axios.get(<span class="code-string">'/api/assignments'</span>);<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;setAssignments(response.data);<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} <span class="code-keyword">catch</span> (error) {<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.error(<span class="code-string">'Error fetching assignments:'</span>, error);<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;setLoading(<span class="code-keyword">false</span>);<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;};<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;fetchAssignments();<br>
-                &nbsp;&nbsp;}, []);<br>
-                <br>
-                &nbsp;&nbsp;<span class="code-keyword">return</span> (<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&lt;div className=<span class="code-string">"assignment-list"</span>&gt;<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{loading ? &lt;Spinner /&gt; : assignments.map(assignment => (<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;AssignmentCard key={assignment.id} assignment={assignment} /&gt;<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;))}<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
-                &nbsp;&nbsp;);<br>
-                };
-              </div>
             </li>
           </ul>
         </div>
